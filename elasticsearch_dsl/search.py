@@ -615,7 +615,7 @@ class Search(Request):
 
         """
         es = connections.get_connection(self._using)
-
+        # raise Exception(self._index)
         async for hit in scan(
                 es,
                 query=self.to_dict(),
