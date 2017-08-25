@@ -562,12 +562,12 @@ class Search(Request):
 
         d = self.to_dict(count=True)
         # TODO: failed shards detection
-        return await es.count(
+        return (await es.count(
             index=self._index,
             doc_type=self._doc_type,
             body=d,
             **self._params
-        )['count']
+        ))['count']
 
     async def execute(self, ignore_cache=False):
         """
