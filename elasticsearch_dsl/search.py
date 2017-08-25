@@ -3,7 +3,7 @@ import collections
 
 from six import iteritems, string_types
 
-from elasticsearch.helpers import scan
+from elasticsearch_async.helpers import scan
 from elasticsearch.exceptions import TransportError
 
 from .query import Q, EMPTY_QUERY, Bool
@@ -604,7 +604,7 @@ class Search(Request):
             )
         )
 
-    def scan(self):
+    async def scan(self):
         """
         Turn the search into a scan search and return a generator that will
         iterate over all the documents matching the query.
@@ -616,7 +616,7 @@ class Search(Request):
         """
         es = connections.get_connection(self._using)
 
-        for hit in scan(
+        async for hit in scan(
                 es,
                 query=self.to_dict(),
                 index=self._index,
